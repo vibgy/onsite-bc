@@ -3,7 +3,8 @@ module.exports = {
   aws: {
     accessId: process.env.ACCESS_KEY_ID || "AKIAJETAJ62TNCEFZCMA",
     secret: process.env.SECRET_ACCESS_KEY || "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",
-    bucket: 'coding-challenges'
+    bucket: 'coding-challenges',
+    base: "https://coding-challenges.s3.amazonaws.com"
   },
   routes: {
     files: '/api/files',

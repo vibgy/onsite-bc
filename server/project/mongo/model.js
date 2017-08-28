@@ -18,9 +18,7 @@ const schema = new mongoose.Schema({
 })
 
 schema.pre('validate', function (next) {
-  //this.dateUpdated = Date.now;
-  //this.dateCreated = this.dateUpdated;
-  //next();
+  next();
 })
 
 module.exports = mongoose.model('Project', schema)

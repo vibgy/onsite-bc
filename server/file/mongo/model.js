@@ -3,13 +3,13 @@
 const mongoose = require('mongoose')
 
 const schema = new mongoose.Schema({
-	projectId: ObjectId,
-	parentId: ObjectId,
+	projectId: mongoose.Schema.Types.ObjectId,
+	parentId: mongoose.Schema.Types.ObjectId,
 	dateCreated: {
 		type: Date,
 		default: Date.now,
 	},
-	dateUpdated: {
+	dateModified: {
 		type: Date,
 		default: Date.now,
 	},
@@ -33,8 +33,7 @@ const schema = new mongoose.Schema({
 })
 
 schema.pre('validate', function (next) {
-  this.dateUpdated = Date.now;
-  this.dateCreated = this.dateUpdated;
+	this.parentId = this.parentId || this.projectId;
   next();
 })
 

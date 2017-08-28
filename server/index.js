@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const P = require('bluebird')
 const config = require('../config')
+const responseTime = require('response-time')
 
 // Have mongoose use bluebird as it's promise library per: http://mongoosejs.com/docs/promises.html
 mongoose.Promise = P
@@ -26,6 +27,13 @@ app.use(webpackMiddleware(
 
 // Set up static files
 app.use(express.static('public'))
+
+const PersistLogs = require('./stats');
+
+app.use(responseTime( (req, res, time, next) => {
+	console.log(req.method, req.url, time);
+	PersistLogs.create(req, res, time, next);
+}));
 
 // Routes for primary API
 app.use('/api/projects', require('./project/router'))

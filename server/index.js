@@ -30,6 +30,7 @@ app.use(express.static('public'))
 // Routes for primary API
 app.use('/api/projects', require('./project/router'))
 app.use('/api/files', require('./file/file-router'))
+app.use('/api/folders', require('./folder/router'))
 
 mongoose
 	.connect(config.db.url)

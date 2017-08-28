@@ -19,7 +19,8 @@ const schema = new mongoose.Schema({
 	},
 	size: {
 		required: true,
-		type: Number
+		type: Number,
+		default: 0
 	},
 	url: {
 		required: true,

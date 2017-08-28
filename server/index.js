@@ -6,6 +6,7 @@ const webpackMiddleware = require('webpack-dev-middleware')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const P = require('bluebird')
+const config = require('../config')
 
 // Have mongoose use bluebird as it's promise library per: http://mongoosejs.com/docs/promises.html
 mongoose.Promise = P
@@ -31,7 +32,7 @@ app.use('/api/projects', require('./project/router'))
 app.use('/api/files', require('./file/file-router'))
 
 mongoose
-	.connect('mongodb://localhost:27019/backend-challenge')
+	.connect(config.db.url)
 	.then(() => {
 		app.listen(8080, () => {
 			console.log('Server started') // eslint-disable-line no-console

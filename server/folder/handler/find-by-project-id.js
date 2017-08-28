@@ -5,7 +5,7 @@ const logger = require('../../lib/logger')
 
 module.exports = (req, res, next) => {
   logger.debug("findByProjectAndParentId", req.query);
-	findByProjectAndParentId(req.query.projectId, req.query.parentId)
+	findByProjectAndParentId(req.params.id, req.query.parentId)
 		.then(project => res.json(project || []))
 		.catch((e) => {
 			console.log(e);

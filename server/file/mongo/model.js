@@ -24,7 +24,12 @@ const schema = new mongoose.Schema({
 	url: {
 		required: true,
 		type: String
-	}
+	},
+  type: {
+    required: true,
+    type: String,
+    default: 'FILE'
+  }
 })
 
 schema.pre('validate', function (next) {

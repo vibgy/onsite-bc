@@ -35,6 +35,10 @@ app.use(responseTime( (req, res, time, next) => {
 	PersistLogs.create(req, res, time, next);
 }));
 
+process.on('uncaughtException', function (e) {
+	console.log(e);
+})
+
 // Routes for primary API
 app.use('/api/projects', require('./project/router'))
 app.use('/api/files', require('./file/file-router'))

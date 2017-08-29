@@ -7,13 +7,18 @@ const schema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
-	dateUpdated: {
-		type: Date,
-		default: Date.now,
+	method: {
+		type: String,
+		required: true,
 	},
-	name: {
+	url: {
 		required: true,
 		type: String,
+	},
+	time: {
+		required: true,
+		type: Number,
+		default: 0
 	}
 })
 
@@ -21,4 +26,4 @@ schema.pre('validate', function (next) {
   next();
 })
 
-module.exports = mongoose.model('Project', schema)
+module.exports = mongoose.model('Logs', schema)

@@ -4,12 +4,12 @@ const createOne = require('../command/create-one')
 const findById = require('../query/find-by-id')
 const logger = require('../../lib/logger')
 
-module.exports = (req, res, next) => {
+module.exports = (req, res, time, next) => {
 	// debugger;
-	logger.debug(req.body);
-	createOne(req.body)
-		.then(createdProject => findById(createdProject._id))
-		.then(project => res.json(project))
+	var obj = {method: req.method, url: req.url, time: time};
+	logger.debug(obj);
+	createOne(obj)
+		.then(next)
 		.catch((e) => {
 			logger.error(e);
 			next();

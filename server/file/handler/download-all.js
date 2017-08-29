@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
   find()
     .then(assets => {
       // res.redirect(s3SignedUrl(asset.url))
-      debugger;
+      // debugger;
       const uuid = uuidv4();
       var q = []
       let output = fs.createWriteStream(uuid + '.zip');
@@ -30,9 +30,9 @@ module.exports = (req, res, next) => {
         const rs = s3RS(a.url);
         //const ws = fs.createWriteStream('/tmp/' + uuid + '/' + a.url);
         //rs.pipe(ws);
-        rs.on('data', function (data) {
-          console.log(data);
-        })
+        //rs.on('data', function (data) {
+        //  console.log(data);
+        //})
         archive.append(rs, {name: a.url});
       });
       archive.finalize();

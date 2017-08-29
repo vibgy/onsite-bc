@@ -2,6 +2,7 @@
 
 const createOne = require('../command/create-one')
 const findById = require('../query/find-by-id')
+const findAndUpdate = require('../command/update-size')
 const logger = require('../../lib/logger')
 
 module.exports = (req, res, next) => {
@@ -19,5 +20,10 @@ module.exports = (req, res, next) => {
 	createOne(md)
 		.then(createdFile => findById(createdFile._id))
 		.then(asset => res.json(asset))
+		.then(() => {
+			if (md.parentId) {
+				return findAndUpdate(md.parentId, md.size);
+			}
+		})
 		.catch(next)
 }

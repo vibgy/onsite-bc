@@ -21,7 +21,7 @@ const uploader = multer({
 router.get('/download-all', require('./handler/download-all'))
 router.post('/', uploader.single('file'), require('./handler/create'))
 router.get('/', require('./handler/find-by-project-id'))
-router.get('/:id', require('./handler/find-by-id'))
 router.get('/:id/content', require('./handler/download'))
+router.get('/:id', require('./handler/find-by-id'))
 
 module.exports = router

@@ -19,24 +19,27 @@ module.exports = (req, res, next) => {
       debugger;
       const uuid = uuidv4();
       var q = []
-      let output = fs.createWriteStream('/tmp/' + uuid + '.zip');
+      let output = fs.createWriteStream(uuid + '.zip');
       let archive = archiver('zip', {
         zlib: { level: 9 } // Sets the compression level.
       });
       archive.pipe(output);
       assets.forEach(function (a) {
-        console.log(a);
         if (a.type !== 'FILE') return;
+        console.log(a.url);
         const rs = s3RS(a.url);
         //const ws = fs.createWriteStream('/tmp/' + uuid + '/' + a.url);
         //rs.pipe(ws);
+        rs.on('data', function (data) {
+          console.log(data);
+        })
         archive.append(rs, {name: a.url});
       });
-
+      archive.finalize();
       output.on('close', function() {
         console.log(archive.pointer() + ' total bytes');
         console.log('archiver has been finalized and the output file descriptor has closed.');
-        res.download('/tmp/' + uuid + '.zip');
+        res.download(uuid + '.zip');
       });
     })
     .catch(next)

@@ -5,8 +5,7 @@ const s3 = require('./s3')
 module.exports = key => {
 	const params = {
 		Bucket: 'coding-challenges',
-		Key: key,
-		Expires: 60,
+		Key: key
 	}
 	return s3.getObject(params).createReadStream();
 }
